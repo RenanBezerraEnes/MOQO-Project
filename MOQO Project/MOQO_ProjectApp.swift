@@ -2,7 +2,7 @@
 //  MOQO_ProjectApp.swift
 //  MOQO Project
 //
-//  Created by user274268 on 2/18/25.
+//  Created by Renan Bezerra on 2/18/25.
 //
 
 import SwiftUI
