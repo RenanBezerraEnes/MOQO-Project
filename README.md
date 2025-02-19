@@ -19,7 +19,6 @@ This mobile application efficiently displays Points of Interest (POIs) on a map 
 - **Testing & Code Quality**
   - UI and integration tests for user interactions.
   - Unit tests for core logic and utility functions.
-  - Well-structured, maintainable, and optimized codebase.
 
 ## API Usage
 ### Fetch POIs with Bounding Box Filtering
@@ -33,7 +32,7 @@ GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[bounding_box]={"n
 ```
 GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[id]=POI_ID&extra_fields[pois]=image,provider
 ```
-- Replace `POI_ID` with the actual POI identifier.
+- Replace `POI_ID` with the actual POI id.
 
 ## Installation & Setup
 1. Clone the repository:
@@ -44,12 +43,8 @@ GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[id]=POI_ID&extra_
 2. Open the project in Xcode:
    - Open Xcode and select `Open a project or file`.
    - Navigate to the cloned repository and open the `.xcodeproj` file.
-3. Install dependencies using CocoaPods (if applicable):
-   ```bash
-   pod install
-   ```
-   - Open the `.xcworkspace` file instead of `.xcodeproj` if CocoaPods is used.
-4. Build and run the project:
+
+3. Build and run the project:
    - Select a simulator or a connected device.
    - Click the **Run** button or press `Cmd + R`.
 
