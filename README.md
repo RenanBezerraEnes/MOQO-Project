@@ -34,7 +34,6 @@ GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[bounding_box]={"n
 GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[id]=POI_ID&extra_fields[pois]=image,provider
 ```
 - Replace `POI_ID` with the actual POI identifier.
-- Add `extra_fields[pois]=image,provider` to fetch additional POI details.
 
 ## Installation & Setup
 1. Clone the repository:
