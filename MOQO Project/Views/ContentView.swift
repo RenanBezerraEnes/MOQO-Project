@@ -68,7 +68,7 @@ struct ContentView: View {
                         .cornerRadius(15)
                         .shadow(radius: 10)
                         .transition(.move(edge: .bottom))
-                        .padding(.top, UIScreen.main.bounds.height / 2)
+                        .padding(.top, UIScreen.main.bounds.height / 2.3)
                         .zIndex(1)
                         .id(selectedPOI.id)
                 }

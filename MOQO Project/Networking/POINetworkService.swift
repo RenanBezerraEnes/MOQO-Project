@@ -5,7 +5,20 @@
 
 import Foundation
 
+extension URLSession: URLSessionProtocol {
+    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+        return (dataTask(with: url, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
+    }
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
+
 class POINetworkService {
+    private let session: URLSessionProtocol
+
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
     
     static let shared = POINetworkService()
     
@@ -20,7 +33,7 @@ class POINetworkService {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error fetching POIs: \(error)")
                 completion(nil)
@@ -54,7 +67,7 @@ class POINetworkService {
             return
         }
 
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error fetching POI details: \(error)")
                 completion(nil)

@@ -32,6 +32,7 @@ struct POIDetailView: View {
                         EmptyView()
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
 
             Text(details.name)
@@ -68,7 +69,17 @@ struct POIDetailView: View {
                         .font(.headline)
                 }
             }
+            Spacer()
+                        
+            HStack {
+                    Spacer()
+                    SwipeToUnlockButton(vehicleName: details.name)
+                    .frame(height: 50)
+                    .padding(.bottom, 20)
+                    Spacer()
+                }
         }
+        
         .padding()
     }
 }
