@@ -6,10 +6,10 @@
 import Foundation
 
 struct POI: Identifiable, Decodable {
-    let id: String
-    let name: String
-    let latitude: Double
-    let longitude: Double
+    var id: String
+    var name: String
+    var latitude: Double
+    var longitude: Double
     
     enum CodingKeys: String, CodingKey {
         case id

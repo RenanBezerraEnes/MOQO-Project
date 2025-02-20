@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "39A0A538-7F1C-49B0-A73A-46D396A5D78A"
+            uuid = "AC3F7C42-D25F-4438-AD8F-72E4DF88983D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MOQO ProjectTests/Networking/POINetworkServiceTests.swift"
+            filePath = "MOQO Project/Networking/POINetworkServiceMock.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10"
-            endingLineNumber = "10"
-            landmarkName = "URLSessionMock"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "POINetworkServiceMock"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

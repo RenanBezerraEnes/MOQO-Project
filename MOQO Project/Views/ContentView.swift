@@ -7,7 +7,7 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-    @StateObject private var viewModel = POIViewModel()
+    @StateObject private var viewModel = POIViewModel(service: POINetworkService())
     @State private var cameraPosition: MapCameraPosition = .region(.init(
         center: .init(latitude: 51.648968, longitude: 7.4278984),
         latitudinalMeters: 150000,
@@ -21,7 +21,7 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 Map(position: $cameraPosition, interactionModes: .all) {
-                    ForEach(viewModel.pois) { poi in
+                    ForEach(viewModel.pois ?? []) { poi in
                         Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.latitude, longitude: poi.longitude)) {
                             Image(systemName: "mappin.circle.fill")
                                 .resizable()
