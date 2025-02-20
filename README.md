@@ -17,8 +17,8 @@ This mobile application efficiently displays Points of Interest (POIs) on a map 
   - Ensure the bounding box updates based on the visible map area.
 
 - **Testing & Code Quality**
-  - UI and integration tests for user interactions.
-  - Unit tests for core logic and utility functions.
+  - Integration tests for Service.
+  - Unit tests for ViewModel.
 
 ## API Usage
 ### Fetch POIs with Bounding Box Filtering
