@@ -54,7 +54,7 @@ GET https://prerelease.moqo.de/api/graph/discovery/pois?filter[id]=POI_ID&extra_
 - Clicking outside a marker on the map will close the detail view.
 - Use `Ctrl` (Windows/Linux) or `Cmd` (Mac) along with your mouse to move around the map.
 - Hold `Shift` and move your mouse in or out to zoom in and out.
-- Moving to a different location and hitting the refresh button at the top will load data for the new location using an updated bounding box.
+- Moving to a different location and hitting the refresh button will load data for the new location using an updated bounding box.
 - I've added a SwipeButtonToUnlock that triggers a transition when swiped from left to right, changing the icon from a lock to an unlock state.
 
 Copyright Renan Bezerra.
