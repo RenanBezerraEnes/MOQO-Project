@@ -16,7 +16,7 @@ struct SwipeToUnlockButton: View {
                 .fill(Color.black.opacity(0.2))
                 .frame(height: 50)
             
-            Text("Swipe to Unlock \(vehicleName)")
+            Text("Swipe \(vehicleName)")
                 .foregroundColor(.black)
                 .bold()
             
@@ -40,7 +40,6 @@ struct SwipeToUnlockButton: View {
                                         .onEnded { _ in
                                             if offset > 150 {
                                                 isUnlocked = true
-                                                print("Unlocked \(vehicleName)")
                                             } else {
                                                 isUnlocked = false
                                             }

@@ -1,8 +1,3 @@
-//
-//  MOQO Project
-//  Created by Renan Bezerra.
-//
-
 import SwiftUI
 import MapKit
 
@@ -19,59 +14,72 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Map(position: $cameraPosition, interactionModes: .all) {
-                    ForEach(viewModel.pois ?? []) { poi in
-                        Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.latitude, longitude: poi.longitude)) {
-                            Image(systemName: "mappin.circle.fill")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(.blue)
-                                .background(.white, in: Circle())
-                                .shadow(radius: 3)
-                                .onTapGesture {
-                                    handlePOITap(poi: poi)
-                                }
-                        }
-                    }
-                }
-                .onMapCameraChange { context in
-                                    currentRegion = context.region
-                }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            refreshPOIs()
-                            print("🔄 Refresh button tapped!")
-                        }) {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                    }
-                }
-                .simultaneousGesture(
-                    TapGesture()
-                        .onEnded {
-                            withAnimation {
-                                isDetailViewVisible = false
-                                selectedPOI = nil
+            VStack(spacing: 0) {
+                ZStack {
+                    Map(position: $cameraPosition, interactionModes: .all) {
+                        ForEach(viewModel.pois ?? []) { poi in
+                            Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.latitude, longitude: poi.longitude)) {
+                                Image(systemName: "mappin.circle.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.blue)
+                                    .background(.white, in: Circle())
+                                    .shadow(radius: 3)
+                                    .onTapGesture {
+                                        handlePOITap(poi: poi)
+                                    }
                             }
                         }
-                )
-                .onAppear {
-                    viewModel.fetchPOIs()
+                    }
+                    .onMapCameraChange { context in
+                        currentRegion = context.region
+                    }
+                    .simultaneousGesture(
+                        TapGesture()
+                            .onEnded {
+                                withAnimation {
+                                    isDetailViewVisible = false
+                                    selectedPOI = nil
+                                }
+                            }
+                    )
+                    .onAppear {
+                        viewModel.fetchPOIs()
+                    }
                 }
+                .frame(maxHeight: .infinity)
 
+                Spacer()
+                
                 if isDetailViewVisible, let selectedPOI = selectedPOI, let selectedPOIDetails = viewModel.selectedPOIDetails {
                     POIDetailView(poi: selectedPOI, details: selectedPOIDetails)
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                        .frame(height: UIScreen.main.bounds.height / 2)
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 10)
                         .transition(.move(edge: .bottom))
-                        .padding(.top, UIScreen.main.bounds.height / 2.3)
+                        .padding(.horizontal)
                         .zIndex(1)
                         .id(selectedPOI.id)
                 }
+                
+                Button(action: {
+                    refreshPOIs()
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.clockwise")
+                        Text("Refresh POIs")
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 3)
+                }
+                .padding(.horizontal)
+                .padding(.top, 20)
+                .padding(.bottom, 20)
             }
         }
     }
@@ -90,26 +98,24 @@ struct ContentView: View {
     }
 
     private func refreshPOIs() {
-            guard let region = currentRegion else {
-                print("No region available")
-                return
-            }
-            
-                let neLat = region.center.latitude + (region.span.latitudeDelta / 2)
-                let neLng = region.center.longitude + (region.span.longitudeDelta / 2)
-                let swLat = region.center.latitude - (region.span.latitudeDelta / 2)
-                let swLng = region.center.longitude - (region.span.longitudeDelta / 2)
-            
-            viewModel.refreshPOIs(
-                neLat: neLat,
-                neLng: neLng,
-                swLat: swLat,
-                swLng: swLng
-            )
+        guard let region = currentRegion else {
+            return
         }
+
+        let neLat = region.center.latitude + (region.span.latitudeDelta / 2)
+        let neLng = region.center.longitude + (region.span.longitudeDelta / 2)
+        let swLat = region.center.latitude - (region.span.latitudeDelta / 2)
+        let swLng = region.center.longitude - (region.span.longitudeDelta / 2)
+
+        viewModel.refreshPOIs(
+            neLat: neLat,
+            neLng: neLng,
+            swLat: swLat,
+            swLng: swLng
+        )
+    }
 }
 
 #Preview {
     ContentView()
 }
-
