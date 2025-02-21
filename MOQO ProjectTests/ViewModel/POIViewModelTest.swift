@@ -22,15 +22,15 @@ class POIViewModelTests: XCTestCase {
     
     func testFetchPOIs_Success() {
         let expectation = self.expectation(description: "POIs fetched successfully")
-
+        
         viewModel.fetchPOIs()
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
-
+        
         XCTAssertNotNil(viewModel.pois)
         XCTAssertEqual(viewModel.pois?[0].id, "1")
         XCTAssertEqual(viewModel.pois?[0].name, "testmock")
@@ -45,13 +45,13 @@ class POIViewModelTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             expectation.fulfill()
         }
-
+        
         waitForExpectations(timeout: 2, handler: nil)
         
         XCTAssertNil(viewModel.pois)
     }
     
     
-
+    
 }
- 
+

@@ -8,10 +8,10 @@ import SwiftUI
 struct POIDetailView: View {
     var poi: POI
     var details: POIDetail
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-  
+            
             if let imageUrl = details.image?.url, let url = URL(string: imageUrl) {
                 AsyncImage(url: url) { phase in
                     switch phase {
@@ -34,18 +34,18 @@ struct POIDetailView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
             }
-
+            
             Text(details.name)
                 .font(.title2)
                 .fontWeight(.bold)
-
+            
             if let vehicleType = details.vehicle_type {
                 HStack {
                     Image(systemName: "car.fill")
                     Text("Type: \(vehicleType)")
                 }
             }
-
+            
             if let provider = details.provider {
                 Divider()
                 HStack {
@@ -64,20 +64,20 @@ struct POIDetailView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-
+                    
                     Text(provider.name)
                         .font(.headline)
                 }
             }
             Spacer()
-                        
+            
             HStack {
-                    Spacer()
-                    SwipeToUnlockButton(vehicleName: details.name)
+                Spacer()
+                SwipeToUnlockButton(vehicleName: details.name)
                     .frame(height: 50)
                     .padding(.bottom, 20)
-                    Spacer()
-                }
+                Spacer()
+            }
         }
         
         .padding()

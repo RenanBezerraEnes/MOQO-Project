@@ -21,36 +21,36 @@ struct SwipeToUnlockButton: View {
                 .bold()
             
             HStack {
-                            RoundedRectangle(cornerRadius: 25)
-                                .fill(Color.black)
-                                .frame(width: 50, height: 50)
-                                .overlay(
-                                    Image(systemName: isUnlocked ? "lock.open.fill" : "lock.fill")
-                                        .foregroundColor(.white)
-                                        .animation(.easeInOut(duration: 0.2), value: isUnlocked)
-                                )
-                                .offset(x: offset)
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { gesture in
-                                            if gesture.translation.width > 0 && gesture.translation.width < 200 {
-                                                offset = gesture.translation.width
-                                            }
-                                        }
-                                        .onEnded { _ in
-                                            if offset > 150 {
-                                                isUnlocked = true
-                                            } else {
-                                                isUnlocked = false
-                                            }
-                                            withAnimation {
-                                                offset = 0
-                                            }
-                                        }
-                                )
-                            Spacer()
-                        }
-                    }
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.black)
+                    .frame(width: 50, height: 50)
+                    .overlay(
+                        Image(systemName: isUnlocked ? "lock.open.fill" : "lock.fill")
+                            .foregroundColor(.white)
+                            .animation(.easeInOut(duration: 0.2), value: isUnlocked)
+                    )
+                    .offset(x: offset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                if gesture.translation.width > 0 && gesture.translation.width < 200 {
+                                    offset = gesture.translation.width
+                                }
+                            }
+                            .onEnded { _ in
+                                if offset > 150 {
+                                    isUnlocked = true
+                                } else {
+                                    isUnlocked = false
+                                }
+                                withAnimation {
+                                    offset = 0
+                                }
+                            }
+                    )
+                Spacer()
+            }
+        }
         .frame(maxWidth: .infinity)
         .frame(height: 50)
         .clipShape(RoundedRectangle(cornerRadius: 25))

@@ -8,27 +8,27 @@ import XCTest
 
 class POINetworkServiceTests: XCTestCase {
     var networkService: POINetworkService!
-
+    
     override func setUp() {
         super.setUp()
         networkService = POINetworkService()
     }
-
+    
     override func tearDown() {
         networkService = nil
         super.tearDown()
     }
-
+    
     func testFetchPOIs_Success() {
         let expectation = self.expectation(description: "Fetch POIs")
         
- 
+        
         networkService.fetchPOIs(boundingBox: "{\"ne_lat\":51.648968,\"ne_lng\":7.4278984,\"sw_lat\":49.28752,\"sw_lng\":5.3754444}", pageSize: 10, pageNumber: 1) { pois in
             XCTAssertNotNil(pois)
             XCTAssertEqual(pois?.count, 10)
             expectation.fulfill()
         }
-
+        
         waitForExpectations(timeout: 2, handler: nil)
     }
     
@@ -47,7 +47,7 @@ class POINetworkServiceTests: XCTestCase {
             XCTAssertEqual(pois?.vehicle_type, "car")
             expectation.fulfill()
         }
-
+        
         waitForExpectations(timeout: 2, handler: nil)
     }
     
@@ -58,7 +58,7 @@ class POINetworkServiceTests: XCTestCase {
             XCTAssertNil(pois)
             expectation.fulfill()
         }
-
+        
         waitForExpectations(timeout: 2, handler: nil)
     }
 }

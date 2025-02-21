@@ -1,3 +1,8 @@
+//
+//  MOQO Project
+//  Created by Renan Bezerra.
+//                          
+
 import SwiftUI
 import MapKit
 
@@ -11,7 +16,7 @@ struct ContentView: View {
     @State private var selectedPOI: POI?
     @State private var isDetailViewVisible = false
     @State private var currentRegion: MKCoordinateRegion?
-
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -48,7 +53,7 @@ struct ContentView: View {
                     }
                 }
                 .frame(maxHeight: .infinity)
-
+                
                 Spacer()
                 
                 if isDetailViewVisible, let selectedPOI = selectedPOI, let selectedPOIDetails = viewModel.selectedPOIDetails {
@@ -83,7 +88,7 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func handlePOITap(poi: POI) {
         if selectedPOI?.id == poi.id && isDetailViewVisible {
             withAnimation {
@@ -96,17 +101,17 @@ struct ContentView: View {
             withAnimation { isDetailViewVisible = true }
         }
     }
-
+    
     private func refreshPOIs() {
         guard let region = currentRegion else {
             return
         }
-
+        
         let neLat = region.center.latitude + (region.span.latitudeDelta / 2)
         let neLng = region.center.longitude + (region.span.longitudeDelta / 2)
         let swLat = region.center.latitude - (region.span.latitudeDelta / 2)
         let swLng = region.center.longitude - (region.span.longitudeDelta / 2)
-
+        
         viewModel.refreshPOIs(
             neLat: neLat,
             neLng: neLng,

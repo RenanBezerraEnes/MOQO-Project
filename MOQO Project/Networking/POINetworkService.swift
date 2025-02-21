@@ -50,23 +50,23 @@ class POINetworkService: POINetworkServiceProtocol {
     
     func fetchPOIDetails(id: String, completion: @escaping (POIDetail?) -> Void) {
         let urlString = "https://prerelease.moqo.de/api/graph/discovery/pois?filter[id]=\(id)&extra_fields[pois]=image,provider"
-
+        
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
-
+        
         let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(nil)
                 return
             }
-
+            
             guard let data = data else {
                 completion(nil)
                 return
             }
-
+            
             do {
                 let response = try JSONDecoder().decode(POIDetailResponse.self, from: data)
                 completion(response.data.first)
@@ -75,7 +75,7 @@ class POINetworkService: POINetworkServiceProtocol {
                 completion(nil)
             }
         }
-
+        
         task.resume()
     }
 }
