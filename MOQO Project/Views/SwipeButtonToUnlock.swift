@@ -9,20 +9,36 @@ struct SwipeToUnlockButton: View {
     var vehicleName: String
     @State private var offset: CGFloat = 0
     @State private var isUnlocked: Bool = false
+    private let maxDragWidth: CGFloat = 250
+    private let unlockThreshold: CGFloat = 150
+    private let cornerRadius: CGFloat = 25
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25)
-                .fill(Color.black.opacity(0.2))
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(isUnlocked ? Color.green.opacity(0.2) : Color.black.opacity(0.2))
                 .frame(height: 50)
             
-            Text("Swipe \(vehicleName)")
-                .foregroundColor(.black)
-                .bold()
+            HStack(spacing: 0) {
+                Spacer()
+                    .frame(width: 50)
+                Text("Swipe to \(isUnlocked ? "Lock " : "Unlock ")")
+                    .foregroundColor(.black)
+                    .bold()
+                    .fixedSize(horizontal: true, vertical: false)
+                Text(vehicleName)
+                    .foregroundColor(.black)
+                    .bold()
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+            }
+            .padding(.leading, 10)
             
             HStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(Color.black)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(isUnlocked ? Color.green : Color.black)
                     .frame(width: 50, height: 50)
                     .overlay(
                         Image(systemName: isUnlocked ? "lock.open.fill" : "lock.fill")
@@ -33,17 +49,15 @@ struct SwipeToUnlockButton: View {
                     .gesture(
                         DragGesture()
                             .onChanged { gesture in
-                                if gesture.translation.width > 0 && gesture.translation.width < 200 {
+                                if gesture.translation.width > 0 && gesture.translation.width < maxDragWidth {
                                     offset = gesture.translation.width
                                 }
                             }
                             .onEnded { _ in
-                                if offset > 150 {
-                                    isUnlocked = true
-                                } else {
-                                    isUnlocked = false
+                                if offset > unlockThreshold  {
+                                    isUnlocked.toggle()
                                 }
-                                withAnimation {
+                                withAnimation(.spring()) {
                                     offset = 0
                                 }
                             }
@@ -53,6 +67,6 @@ struct SwipeToUnlockButton: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 50)
-        .clipShape(RoundedRectangle(cornerRadius: 25))
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }

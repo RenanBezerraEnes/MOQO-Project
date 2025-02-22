@@ -77,7 +77,7 @@ struct POIDetailView: View {
                     .frame(height: 50)
                     .padding(.bottom, 20)
                 Spacer()
-            }
+            }                           
         }
         
         .padding()
