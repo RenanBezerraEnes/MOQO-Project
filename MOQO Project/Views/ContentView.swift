@@ -42,9 +42,9 @@ struct ContentView: View {
                     .simultaneousGesture(
                         TapGesture()
                             .onEnded {
-                              withAnimation(.easeOut(duration: 0.3)) {
-                               isDetailViewVisible = false
-                               selectedPOI = nil
+                                withAnimation(.easeOut(duration: 0.3)) {
+                                    isDetailViewVisible = false
+                                    selectedPOI = nil
                                 }
                             }
                     )
