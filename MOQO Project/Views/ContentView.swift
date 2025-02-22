@@ -42,9 +42,9 @@ struct ContentView: View {
                     .simultaneousGesture(
                         TapGesture()
                             .onEnded {
-                                withAnimation {
-                                    isDetailViewVisible = false
-                                    selectedPOI = nil
+                              withAnimation(.easeOut(duration: 0.3)) {
+                               isDetailViewVisible = false
+                               selectedPOI = nil
                                 }
                             }
                     )
@@ -62,10 +62,11 @@ struct ContentView: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 10)
-                        .transition(.move(edge: .bottom))
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                         .padding(.horizontal)
                         .zIndex(1)
                         .id(selectedPOI.id)
+                        .animation(.easeInOut(duration: 0.3), value: isDetailViewVisible)
                 }
                 
                 Button(action: {
