@@ -6,13 +6,16 @@ import XCTest
 //
 
 class ContentViewUITests: XCTestCase {
+    var app: XCUIApplication!
     
     override func setUpWithError() throws {
         continueAfterFailure = false
-        XCUIApplication().launch()
+        app = XCUIApplication()
+        app.launch()
     }
     
     override func tearDownWithError() throws {
+        app = nil
     }
     
     func testInitialState() throws {
@@ -33,11 +36,14 @@ class ContentViewUITests: XCTestCase {
     }
     
     func testRefreshButton() throws {
-        let app = XCUIApplication()
-        
-        let refreshButton = app.buttons["arrow.clockwise"]
-        XCTAssertTrue(refreshButton.exists, "The refresh button should be present")
+        let refreshButton = app.buttons["Refresh POIs"]
+        XCTAssertTrue(refreshButton.waitForExistence(timeout: 2), "The refresh button should be present")
         
         refreshButton.tap()
+        
+        Thread.sleep(forTimeInterval: 1)
+        
+        let map = app.maps.element
+        XCTAssertTrue(map.exists, "The map should still be present after refresh")
     }
 }

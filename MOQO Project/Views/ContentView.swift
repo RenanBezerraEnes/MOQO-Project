@@ -1,7 +1,7 @@
 //
 //  MOQO Project
 //  Created by Renan Bezerra.
-//                          
+//
 
 import SwiftUI
 import MapKit
