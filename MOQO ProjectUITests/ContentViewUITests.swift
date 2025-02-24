@@ -28,6 +28,22 @@ class ContentViewUITests: XCTestCase {
         XCTAssertFalse(detailView.exists, "The detail view should not be visible initially")
     }
     
+    func testPOISelectionDetailView() throws {
+        let map = app.maps.firstMatch
+        XCTAssertTrue(map.waitForExistence(timeout: 10))
+        
+        let poiMarker = app.images["mappin.circle.fill"].firstMatch
+        XCTAssertTrue(poiMarker.waitForExistence(timeout: 10))
+        
+        if poiMarker.exists && poiMarker.isHittable {
+            let coordinate = poiMarker.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+            coordinate.tap()
+            
+            let detailView = app.descendants(matching: .any)["POIDetailView"].firstMatch
+            XCTAssertTrue(detailView.waitForExistence(timeout: 15))
+        }
+    }
+    
     func testMapCameraChange() throws {
         let app = XCUIApplication()
         

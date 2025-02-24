@@ -67,6 +67,7 @@ struct ContentView: View {
                         .zIndex(1)
                         .id(selectedPOI.id)
                         .animation(.easeInOut(duration: 0.3), value: isDetailViewVisible)
+                        .accessibilityIdentifier("POIDetailView")
                 }
                 
                 Button(action: {
@@ -92,15 +93,17 @@ struct ContentView: View {
     }
     
     private func handlePOITap(poi: POI) {
-        if selectedPOI?.id == poi.id && isDetailViewVisible {
-            withAnimation {
-                isDetailViewVisible = false
-                selectedPOI = nil
+        DispatchQueue.main.async {
+            if selectedPOI?.id == poi.id && isDetailViewVisible {
+                withAnimation {
+                    isDetailViewVisible = false
+                    selectedPOI = nil
+                }
+            } else {
+                viewModel.fetchPOIDetails(id: poi.id)
+                selectedPOI = poi
+                withAnimation { isDetailViewVisible = true }
             }
-        } else {
-            viewModel.fetchPOIDetails(id: poi.id)
-            selectedPOI = poi
-            withAnimation { isDetailViewVisible = true }
         }
     }
     
